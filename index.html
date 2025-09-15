@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusConnect - College Dating App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 3D Background Elements -->
+    <div class="bg-3d-container">
+        <div class="floating-heart">💖</div>
+
+
+        
+        <div class="floating-heart">💕</div>
+        <div class="floating-heart">💗</div>
+        <div class="floating-star">⭐</div>
+        <div class="floating-star">✨</div>
+        <div class="floating-star">🌟</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span class="logo-text">CampusConnect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#testimonials" class="nav-link">Reviews</a>
+                <a href="signin.html" class="nav-link signin-link" id="auth-link">Sign In</a>
+                </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                </div>
+            </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+                <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">Find Your</span>
+                        <span class="title-line highlight">Perfect Match</span>
+                        <span class="title-line">on Campus</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Connect with fellow students, discover new friendships, and maybe find that special someone. 
+                        CampusConnect makes college life more exciting!
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="signup.html" class="btn btn-primary" id="get-started">
+                            <span>Get Started</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+ 
+                    </div>
+                    </div>
+                </div>
+            
+                <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-interface">
+                            <!-- Profile Card Stack -->
+                            <div class="card-stack">
+                                <div class="profile-card card-3">
+                                    <div class="card-bg" style="background: linear-gradient(135deg, #ff6b9d, #c44569);"></div>
+                                    <div class="card-image">
+                                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=400&fit=crop&crop=face" alt="Sarah" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="profile-info">
+                                            <h3>Sarah, 20</h3>
+                                            <p>Computer Science</p>
+                                            <div class="interests">
+                                                <span class="interest-tag">Photography</span>
+                                                <span class="interest-tag">Coffee</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-card card-2">
+                                    <div class="card-bg" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
+                                    <div class="card-image">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&crop=face" alt="Mike" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="profile-info">
+                                            <h3>Mike, 22</h3>
+                                            <p>Business</p>
+                                            <div class="interests">
+                                                <span class="interest-tag">Gaming</span>
+                                                <span class="interest-tag">Music</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-card card-1 active">
+                                    <div class="card-bg" style="background: linear-gradient(135deg, #fa709a, #fee140);"></div>
+                                    <div class="card-image">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=400&fit=crop&crop=face" alt="Emma" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="profile-info">
+                                            <h3>Emma, 21</h3>
+                                            <p>Psychology</p>
+                                            <div class="interests">
+                                                <span class="interest-tag">Art</span>
+                                                <span class="interest-tag">Yoga</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="action-buttons">
+                                <button class="action-btn dislike" id="dislike-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <button class="action-btn superlike" id="superlike-btn">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button class="action-btn like" id="like-btn">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Floating Elements -->
+                <div class="floating-elements">
+                    <div class="floating-element element-1">💕</div>
+                    <div class="floating-element element-2">⭐</div>
+                    <div class="floating-element element-3">💖</div>
+                    <div class="floating-element element-4">✨</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose CampusConnect?</h2>
+                <p class="section-subtitle">Built specifically for college students with features that matter</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>University Verified</h3>
+                    <p>All profiles are verified with university email addresses, ensuring authentic connections with real students.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe & Secure</h3>
+                    <p>Advanced privacy controls and safety features to protect your personal information and ensure a secure experience.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Study Groups</h3>
+                    <p>Find study partners, join study groups, and connect with classmates in your courses.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Events & Activities</h3>
+                    <p>Discover campus events, parties, and activities happening around your university.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Smart Matching</h3>
+                    <p>AI-powered matching based on interests, major, and compatibility to find your perfect match.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile First</h3>
+                    <p>Optimized for mobile devices with a smooth, intuitive interface designed for the modern student.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Getting started is simple and fun</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step" data-aos="fade-right" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Sign Up</h3>
+                        <p>Create your profile using your university email and add your interests, photos, and bio.</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step" data-aos="fade-left" data-aos-delay="200">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Swipe & Match</h3>
+                        <p>Swipe right on profiles you like, left to pass. When both swipe right, it's a match!</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step" data-aos="fade-right" data-aos-delay="300">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Connect</h3>
+                        <p>Start chatting with your matches, plan study sessions, or meet up for campus events.</p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Students Say</h2>
+                <p class="section-subtitle">Real stories from real students</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"CampusConnect helped me find my study group and my best friend! The app is so easy to use and everyone is so friendly."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Sarah">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Chen</h4>
+                                <span>Computer Science, MIT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"I was skeptical at first, but CampusConnect actually works! I've met so many amazing people and even found my girlfriend here."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Alex">
+                            </div>
+                            <div class="author-info">
+                                <h4>Alex Rodriguez</h4>
+                                <span>Business, Stanford</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"The study group feature is amazing! I found people in my major and we've been studying together ever since. Highly recommend!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Emma">
+                            </div>
+                            <div class="author-info">
+                                <h4>Emma Johnson</h4>
+                                <span>Psychology, UCLA</span>
+                            </div>
+                        </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <span>CampusConnect</span>
+                    </div>
+                    <p>Connecting college students across campuses worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Download</a></li>
+                        <li><a href="#">Updates</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Safety</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 CampusConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

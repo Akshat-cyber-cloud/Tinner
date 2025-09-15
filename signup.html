@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - CampusConnect</title>
+    <link rel="stylesheet" href="auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Background Elements -->
+        <div class="bg-elements">
+            <div class="floating-heart">💖</div>
+            <div class="floating-heart">💕</div>
+            <div class="floating-star">⭐</div>
+            <div class="floating-star">✨</div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="auth-nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <span>CampusConnect</span>
+                </div>
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <!-- Auth Form Container -->
+        <div class="auth-form-container">
+            <div class="auth-form-wrapper">
+                <!-- Progress Indicator -->
+                <div class="progress-indicator">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span>Basic Info</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <span>Photos</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <span>Interests</span>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-number">4</div>
+                        <span>Review</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Basic Information -->
+                <div class="auth-step active" id="step-1">
+                    <div class="step-header">
+                        <h2>Let's get to know you!</h2>
+                        <p>Tell us about yourself to create your profile</p>
+                    </div>
+
+                    <form class="auth-form" id="basic-info-form">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="yourname@gmail.com">
+                            <small>We'll verify this with your university</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <input type="password" id="password" name="password" required minlength="8">
+                            <small>Minimum 8 characters</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password *</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age *</label>
+                                <input type="number" id="age" name="age" required min="18" max="30">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender *</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="university">University *</label>
+                            <input type="text" id="university" name="university" value="Lovely Professional University (LPU)" readonly style="background: rgba(255, 255, 255, 0.05); cursor: not-allowed;">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="major">Major/Field of Study *</label>
+                            <input type="text" id="major" name="major" required placeholder="e.g., Computer Science">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="year">Academic Year *</label>
+                            <select id="year" name="year" required>
+                                <option value="">Select Year</option>
+                                <option value="1st-year">1st Year</option>
+                                <option value="2nd-year">2nd Year</option>
+                                <option value="3rd-year">3rd Year</option>
+                                <option value="4th-year">4th Year</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bio">Bio *</label>
+                            <textarea id="bio" name="bio" required maxlength="500" placeholder="Tell us about yourself..."></textarea>
+                            <small><span id="bio-count">0</span>/500 characters</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location (City, State) *</label>
+                            <input type="text" id="location" name="location" required placeholder="e.g., Punjab, India">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                                Next: Add Photos
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2: Photos -->
+                <div class="auth-step" id="step-2">
+                    <div class="step-header">
+                        <h2>Add your photos</h2>
+                        <p>Upload at least 3 photos to get started</p>
+                    </div>
+
+                    <div class="photo-upload-section">
+                        <div class="photo-grid">
+                            <div class="photo-upload-item" id="photo-1">
+                                <div class="photo-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Add Photo 1</span>
+                                    <small>Main photo</small>
+                                </div>
+                                <input type="file" accept="image/*" class="photo-input" data-photo="1">
+                                <div class="photo-preview" style="display: none;"></div>
+                                <button type="button" class="remove-photo" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="photo-upload-item" id="photo-2">
+                                <div class="photo-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Add Photo 2</span>
+                                </div>
+                                <input type="file" accept="image/*" class="photo-input" data-photo="2">
+                                <div class="photo-preview" style="display: none;"></div>
+                                <button type="button" class="remove-photo" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="photo-upload-item" id="photo-3">
+                                <div class="photo-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Add Photo 3</span>
+                                </div>
+                                <input type="file" accept="image/*" class="photo-input" data-photo="3">
+                                <div class="photo-preview" style="display: none;"></div>
+                                <button type="button" class="remove-photo" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="photo-upload-item" id="photo-4">
+                                <div class="photo-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Add Photo 4</span>
+                                </div>
+                                <input type="file" accept="image/*" class="photo-input" data-photo="4">
+                                <div class="photo-preview" style="display: none;"></div>
+                                <button type="button" class="remove-photo" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="photo-upload-item" id="photo-5">
+                                <div class="photo-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Add Photo 5</span>
+                                </div>
+                                <input type="file" accept="image/*" class="photo-input" data-photo="5">
+                                <div class="photo-preview" style="display: none;"></div>
+                                <button type="button" class="remove-photo" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="photo-upload-item" id="photo-6">
+                                <div class="photo-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Add Photo 6</span>
+                                </div>
+                                <input type="file" accept="image/*" class="photo-input" data-photo="6">
+                                <div class="photo-preview" style="display: none;"></div>
+                                <button type="button" class="remove-photo" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="photo-tips">
+                            <h4>Photo Tips:</h4>
+                            <ul>
+                                <li>Use clear, well-lit photos</li>
+                                <li>Show your face clearly in the first photo</li>
+                                <li>Include photos that show your personality</li>
+                                <li>Avoid group photos as your main photo</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                                Next: Interests
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Interests -->
+                <div class="auth-step" id="step-3">
+                    <div class="step-header">
+                        <h2>What are you into?</h2>
+                        <p>Select your interests to help us find better matches</p>
+                    </div>
+
+                    <div class="interests-section">
+                        <div class="interests-grid">
+                            <div class="interest-category">
+                                <h4>Hobbies & Activities</h4>
+                                <div class="interest-tags">
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="photography">
+                                        <span>Photography</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="music">
+                                        <span>Music</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="art">
+                                        <span>Art</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="gaming">
+                                        <span>Gaming</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="reading">
+                                        <span>Reading</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="cooking">
+                                        <span>Cooking</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="dancing">
+                                        <span>Dancing</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="writing">
+                                        <span>Writing</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="interest-category">
+                                <h4>Sports & Fitness</h4>
+                                <div class="interest-tags">
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="gym">
+                                        <span>Gym</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="running">
+                                        <span>Running</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="yoga">
+                                        <span>Yoga</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="basketball">
+                                        <span>Basketball</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="soccer">
+                                        <span>Soccer</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="tennis">
+                                        <span>Tennis</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="swimming">
+                                        <span>Swimming</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="hiking">
+                                        <span>Hiking</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="interest-category">
+                                <h4>Lifestyle</h4>
+                                <div class="interest-tags">
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="coffee">
+                                        <span>Coffee</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="travel">
+                                        <span>Travel</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="movies">
+                                        <span>Movies</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="netflix">
+                                        <span>Netflix</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="parties">
+                                        <span>Parties</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="volunteering">
+                                        <span>Volunteering</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="fashion">
+                                        <span>Fashion</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="pets">
+                                        <span>Pets</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="interest-category">
+                                <h4>Academic & Career</h4>
+                                <div class="interest-tags">
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="research">
+                                        <span>Research</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="entrepreneurship">
+                                        <span>Entrepreneurship</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="startups">
+                                        <span>Startups</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="internships">
+                                        <span>Internships</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="study-groups">
+                                        <span>Study Groups</span>
+                                    </label>
+                                    <label class="interest-tag">
+                                        <input type="checkbox" name="interests" value="networking">
+                                        <span>Networking</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(4)">
+                                Next: Review
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review & Submit -->
+                <div class="auth-step" id="step-4">
+                    <div class="step-header">
+                        <h2>Review your profile</h2>
+                        <p>Make sure everything looks good before creating your account</p>
+                    </div>
+
+                    <div class="review-section">
+                        <div class="profile-preview">
+                            <div class="preview-photos">
+                                <div class="main-photo" id="preview-main-photo">
+                                    <img src="" alt="Main Photo" style="display: none;">
+                                    <div class="no-photo">No photo uploaded</div>
+                                </div>
+                                <div class="additional-photos" id="preview-additional-photos">
+                                    <!-- Additional photos will be populated here -->
+                                </div>
+                            </div>
+
+                            <div class="preview-info">
+                                <h3 id="preview-name">Your Name</h3>
+                                <p id="preview-age-gender">Age, Gender</p>
+                                <p id="preview-university">University, Major</p>
+                                <p id="preview-location">Location</p>
+                                <div class="preview-bio">
+                                    <p id="preview-bio-text">Your bio will appear here...</p>
+                                </div>
+                                <div class="preview-interests" id="preview-interests">
+                                    <!-- Selected interests will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="terms-section">
+                            <label class="terms-checkbox">
+                                <input type="checkbox" id="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(3)">
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+                            </button>
+                            <button type="button" class="btn btn-primary" id="create-account-btn" onclick="createAccount()">
+                                <i class="fas fa-heart"></i>
+                                Create Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Creating your account...</p>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

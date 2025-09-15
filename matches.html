@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Matches - CampusConnect</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .matches-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .matches-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .matches-header h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .matches-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .card-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .profile-card {
+            position: absolute;
+            width: 350px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            cursor: grab;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card:active {
+            cursor: grabbing;
+        }
+
+        .profile-card.dragging {
+            transform: rotate(5deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-card.swiped-left {
+            transform: translateX(-100vw) rotate(-30deg);
+            opacity: 0;
+        }
+
+        .profile-card.swiped-right {
+            transform: translateX(100vw) rotate(30deg);
+            opacity: 0;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-info h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-info p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.3rem;
+        }
+
+        .card-interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .interest-tag {
+            background: rgba(255, 107, 157, 0.3);
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 107, 157, 0.5);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .action-btn.dislike {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            color: #fff;
+        }
+
+        .action-btn.superlike {
+            background: linear-gradient(135deg, #3742fa, #2f3542);
+            color: #fff;
+        }
+
+        .action-btn.like {
+            background: linear-gradient(135deg, #2ed573, #1e90ff);
+            color: #fff;
+        }
+
+        .no-matches {
+            text-align: center;
+            color: #fff;
+            padding: 2rem;
+        }
+
+        .no-matches h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-matches p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .back-to-home {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 107, 157, 0.2);
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background: rgba(255, 107, 157, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .user-info {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 107, 157, 0.2);
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-btn {
+            background: rgba(255, 107, 157, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 107, 157, 0.5);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                width: 300px;
+                height: 450px;
+            }
+            
+            .matches-container {
+                padding: 1rem;
+            }
+            
+            .back-to-home, .user-info {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin: 1rem;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <a href="index.html" class="back-to-home">
+        <i class="fas fa-arrow-left"></i>
+        Back to Home
+    </a>
+
+    <div class="user-info" id="user-info">
+        <i class="fas fa-user"></i>
+        <span id="user-name">Loading...</span>
+        <button onclick="logout()" class="logout-btn" title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <div class="matches-container">
+        <div class="matches-header">
+            <h1>Find Your Perfect Match</h1>
+            <p>Swipe right to like, left to pass</p>
+        </div>
+
+        <div class="card-container" id="card-container">
+            <!-- Profile cards will be dynamically inserted here -->
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn dislike" id="dislike-btn">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="action-btn superlike" id="superlike-btn">
+                <i class="fas fa-star"></i>
+            </button>
+            <button class="action-btn like" id="like-btn">
+                <i class="fas fa-heart"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let matches = [];
+        let currentCardIndex = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let currentX = 0;
+        let currentY = 0;
+
+        // Initialize the matches page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            loadMatches();
+            initSwipeHandlers();
+        });
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear user data
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userData');
+                
+                // Redirect to home page
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Check if user is authenticated
+        function checkAuth() {
+            const token = localStorage.getItem('userToken');
+            const userData = localStorage.getItem('userData');
+            
+            if (!token || !userData) {
+                window.location.href = 'signin.html';
+                return;
+            }
+            
+            currentUser = JSON.parse(userData);
+            document.getElementById('user-name').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+        }
+
+        // Load matches from server
+        async function loadMatches() {
+            try {
+                const token = localStorage.getItem('userToken');
+                const response = await fetch('/api/matches', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    matches = data.matches;
+                    displayMatches();
+                } else {
+                    console.error('Failed to load matches');
+                    showNoMatches();
+                }
+            } catch (error) {
+                console.error('Error loading matches:', error);
+                showNoMatches();
+            }
+        }
+
+        // Display matches as cards
+        function displayMatches() {
+            const container = document.getElementById('card-container');
+            container.innerHTML = '';
+
+            if (matches.length === 0) {
+                showNoMatches();
+                return;
+            }
+
+            // Show first 3 cards
+            for (let i = 0; i < Math.min(3, matches.length); i++) {
+                const match = matches[i];
+                const card = createProfileCard(match, i);
+                container.appendChild(card);
+            }
+        }
+
+        // Create a profile card
+        function createProfileCard(match, index) {
+            const card = document.createElement('div');
+            card.className = 'profile-card';
+            card.style.zIndex = 3 - index;
+            card.style.transform = `scale(${1 - index * 0.05}) translateY(${index * 10}px)`;
+            
+            const interests = match.interests ? match.interests.slice(0, 3) : [];
+            
+            card.innerHTML = `
+                <div class="card-image">
+                    ${match.photos && match.photos.length > 0 
+                        ? `<img src="${match.photos[0]}" alt="${match.firstName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                           <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 4rem; color: #fff;">
+                               <i class="fas fa-user"></i>
+                           </div>`
+                        : `<i class="fas fa-user"></i>`
+                    }
+                </div>
+                <div class="card-content">
+                    <div class="card-info">
+                        <h3>${match.firstName}, ${match.age}</h3>
+                        <p>${match.major || 'Student'}</p>
+                        <p>${match.year || ''}</p>
+                        ${match.bio ? `<p style="font-size: 0.9rem; margin-top: 0.5rem;">${match.bio.substring(0, 100)}${match.bio.length > 100 ? '...' : ''}</p>` : ''}
+                    </div>
+                    <div class="card-interests">
+                        ${interests.map(interest => `<span class="interest-tag">${interest}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Add drag functionality
+            addDragListeners(card, match);
+
+            return card;
+        }
+
+        // Add drag listeners to card
+        function addDragListeners(card, match) {
+            card.addEventListener('mousedown', startDrag);
+            card.addEventListener('touchstart', startDrag);
+            card.addEventListener('mousemove', drag);
+            card.addEventListener('touchmove', drag);
+            card.addEventListener('mouseup', endDrag);
+            card.addEventListener('touchend', endDrag);
+        }
+
+        // Start dragging
+        function startDrag(e) {
+            isDragging = true;
+            const card = e.currentTarget;
+            card.classList.add('dragging');
+            
+            const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+            const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+            
+            startX = clientX;
+            startY = clientY;
+            currentX = clientX;
+            currentY = clientY;
+        }
+
+        // Drag card
+        function drag(e) {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            const card = e.currentTarget;
+            const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+            const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
+            
+            currentX = clientX;
+            currentY = clientY;
+            
+            const deltaX = currentX - startX;
+            const deltaY = currentY - startY;
+            const rotation = deltaX * 0.1;
+            
+            card.style.transform = `translate(${deltaX}px, ${deltaY}px) rotate(${rotation}deg)`;
+            
+            // Change opacity based on swipe direction
+            const opacity = Math.max(0.3, 1 - Math.abs(deltaX) / 200);
+            card.style.opacity = opacity;
+        }
+
+        // End dragging
+        function endDrag(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            const card = e.currentTarget;
+            card.classList.remove('dragging');
+            
+            const deltaX = currentX - startX;
+            const threshold = 100;
+            
+            if (Math.abs(deltaX) > threshold) {
+                if (deltaX > 0) {
+                    swipeRight(card);
+                } else {
+                    swipeLeft(card);
+                }
+            } else {
+                // Return to center
+                card.style.transform = '';
+                card.style.opacity = '';
+            }
+        }
+
+        // Swipe left (dislike)
+        function swipeLeft(card) {
+            card.classList.add('swiped-left');
+            setTimeout(() => {
+                card.remove();
+                nextCard();
+            }, 300);
+        }
+
+        // Swipe right (like)
+        function swipeRight(card) {
+            card.classList.add('swiped-right');
+            setTimeout(() => {
+                card.remove();
+                nextCard();
+            }, 300);
+        }
+
+        // Show next card
+        function nextCard() {
+            currentCardIndex++;
+            
+            if (currentCardIndex >= matches.length) {
+                showNoMatches();
+                return;
+            }
+            
+            // Bring next card to front
+            const cards = document.querySelectorAll('.profile-card');
+            cards.forEach((card, index) => {
+                card.style.zIndex = cards.length - index;
+                card.style.transform = `scale(${1 - index * 0.05}) translateY(${index * 10}px)`;
+            });
+        }
+
+        // Show no matches message
+        function showNoMatches() {
+            const container = document.getElementById('card-container');
+            container.innerHTML = `
+                <div class="no-matches">
+                    <h2>No more matches!</h2>
+                    <p>Check back later for new people to connect with.</p>
+                    <button onclick="loadMatches()" style="background: linear-gradient(135deg, #ff6b9d, #c44569); color: #fff; border: none; padding: 1rem 2rem; border-radius: 25px; margin-top: 1rem; cursor: pointer;">
+                        Refresh Matches
+                    </button>
+                </div>
+            `;
+        }
+
+        // Initialize swipe button handlers
+        function initSwipeHandlers() {
+            document.getElementById('dislike-btn').addEventListener('click', () => {
+                const topCard = document.querySelector('.profile-card');
+                if (topCard) swipeLeft(topCard);
+            });
+
+            document.getElementById('like-btn').addEventListener('click', () => {
+                const topCard = document.querySelector('.profile-card');
+                if (topCard) swipeRight(topCard);
+            });
+
+            document.getElementById('superlike-btn').addEventListener('click', () => {
+                const topCard = document.querySelector('.profile-card');
+                if (topCard) {
+                    // Super like animation
+                    topCard.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        swipeRight(topCard);
+                    }, 200);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
